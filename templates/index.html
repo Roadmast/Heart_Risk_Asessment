@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="../assets/favicon.png"/>
+    <!-- Add this within the <head> tag of your HTML file -->
+<style>
+    body {
+        background-image: url('/static/loading.gif');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .card-header {
+        background-color: #007bff; /* Bootstrap primary color */
+        color: white;
+    }
+
+    .card-body {
+        background-color: #f8f9fa; /* Bootstrap light gray background color */
+    }
+
+    /* Add more styles as needed for specific form elements */
+    .form-group label {
+        color: #007bff; /* Label color */
+    }
+
+    .form-control {
+        background-color: #e9ecef; /* Input field background color */
+    }
+
+    .btn-primary {
+        background-color: #007bff; /* Submit button color */
+        border-color: #007bff;
+    }
+</style>
+
+    <title>Heart Disease Test</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z" />
+                </svg>
+                Heart Disease Web Application</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+    <div class="container">
+
+        <div class="card  mt-4">
+            <div class="card-header">
+                Fill out this application form to know about your heart stroke risk
+            </div>
+            <div class="card-body">
+                <form action="{{url_for('predict')}}" method="POST">
+
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label for="age">Age</label>
+                            <input type="number" class="form-control" id="age" name="age" placeholder="1-100 Years" required>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="sex">Sex</label>
+                            <select class="form-control" id="sex" name="sex" required>
+                                <option disabled selected value> -- Select an Option -- </option>
+                                <option value="0">Female</option>
+                                <option value="1">Male</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="cholesterol">Cholesterol</label>
+                            <input type="number" class="form-control" id="cholesterol" name="cholesterol" placeholder="125-500 mg/dL" required>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="heart_rate">Heart Rate</label>
+                            <input type="number" class="form-control" id="heart_rate" name="heart_rate" placeholder="60-200 bpm" required>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="diabetes">Diabetes</label>
+                            <select class="form-control" id="diabetes" name="diabetes" required>
+                                <option disabled selected value> -- Select an Option -- </option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="family_history">Family History</label>
+                            <select class="form-control" id="family_history" name="family_history" required>
+                                <option disabled selected value> -- Select an Option -- </option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="smoking">Smoking</label>
+                            <select class="form-control" id="smoking" name="smoking" required>
+                                <option disabled selected value> -- Select an Option -- </option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="obesity">Obesity</label>
+                            <select class="form-control" id="obesity" name="obesity" required>
+                                <option disabled selected value> -- Select an Option -- </option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="alcohol_consumption">Alcohol Consuption</label>
+                            <select class="form-control" id="alcohol_consumption" name="alcohol_consumption" required>
+                                <option disabled selected value> -- Select an Option -- </option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="exercise_hours_per_week">Exercise Hours Per Week</label>
+                            <input type="number" class="form-control" id="exercise_hours_per_week" name="exercise_hours_per_week" placeholder="1-80 hours" required>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="diet">Diet</label>
+                            <select class="form-control" id="diet" name="diet" required>
+                                <option disabled selected value> -- Select an Option -- </option>
+                                <option value="0">Average</option>
+                                <option value="1">Healthy</option>
+                                <option value="2">Unhealthy</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="previous_heart_problems">Previous Heart Problems</label>
+                            <select class="form-control" id="previous_heart_problems" name="previous_heart_problems" required>
+                                <option disabled selected value> -- Select an Option -- </option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="medication_use">Medication Use</label>
+                            <select class="form-control" id="medication_use" name="medication_use" required>
+                                <option disabled selected value> -- Select an Option -- </option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="stress_level">Stress Level</label>
+                            <input type="number" class="form-control" id="stress_level" name="stress_level" placeholder="1-10" required>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="sedentary_hours_per_day">Sedentary Hours Per Day</label>
+                            <input type="number" class="form-control" id="sedentary_hours_per_day" name="sedentary_hours_per_day" placeholder="1-24 Hours" required>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="bmi">BMI</label>
+                            <input type="number" class="form-control" id="bmi" name="bmi" placeholder="18-25 kg/m^2" required>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="triglycerides">Triglycerides</label>
+                            <input type="number" class="form-control" id="triglycerides" name="triglycerides" placeholder="200-499 mg/dL" required>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="physical_activity_days_per_week">Physical Activity Days Per Week</label>
+                            <input type="number" class="form-control" id="physical_activity_days_per_week" name="physical_activity_days_per_week" placeholder="1-7 days" required>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="sleep_hours_per_day">Sleep Hours Per Day</label>
+                            <input type="number" class="form-control" id="sleep_hours_per_day" name="sleep_hours_per_day" placeholder="1-24 hours" required>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="country">Country</label>
+                            <select class="form-control" id="country" name="country" required>
+                                <option disabled selected value> -- Select an Option -- </option>
+                                <option value="0">Argentina</option>
+                                <option value="1">Australia</option>
+                                <option value="2">Brazil</option>
+                                <option value="3">Canada</option>
+                                <option value="4">China</option>
+                                <option value="5">Colombia</option>
+                                <option value="6">France</option>
+                                <option value="7">Germany</option>
+                                <option value="8">India</option>
+                                <option value="9">Italy</option>
+                                <option value="10">Japan</option>
+                                <option value="11">New Zealand</option>
+                                <option value="12">Nigeria</option>
+                                <option value="13">South Africa</option>
+                                <option value="14">South Korea</option>
+                                <option value="15">Spain</option>
+                                <option value="16">Thailand</option>
+                                <option value="17">United Kingdom</option>
+                                <option value="18">United States</option>
+                                <option value="19">Vietnam</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="continent">Continent</label>
+                            <select class="form-control" id="continent" name="continent" required>
+                                <option disabled selected value> -- Select an Option -- </option>
+                                <option value="0">Africa</option>
+                                <option value="1">Asia</option>
+                                <option value="2">Australia</option>
+                                <option value="3">Europe</option>
+                                <option value="4">North America</option>
+                                <option value="5">South America</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="hemisphere">Hemisphere</label>
+                            <select class="form-control" id="hemisphere" name="hemisphere" required>
+                                <option disabled selected value> -- Select an Option -- </option>
+                                <option value="0">Northern Hemisphere</option>
+                                <option value="1">Southern Hemisphere</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="systolic">Systolic Pressure</label>
+                            <input type="number" class="form-control" id="systolic" name="systolic" placeholder="90-180 mmHg" required>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label for="diastolic">Diastolic Pressure</label>
+                            <input type="number" class="form-control" id="diastolic" name="diastolic" placeholder="60-80 mmHg" required>
+                        </div>
+                        
+
+                    </div>
+
+                    <br>
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="Submit">
+                    </div>
+
+                    <!-- Prediction Result -->
+                    <div id="result" style="text-align: center;">
+                        <strong style="color:rgb(2, 51, 68)">{{prediction}}</strong>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+    
+
+
+</body>
+
+</html>
